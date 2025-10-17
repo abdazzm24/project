@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #e5e7eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-box {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  width: 320px;
+  text-align: center;
+  color: #111827;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.login-box:hover {
+  transform: translateY(-3px);
+}
+
+.login-box h3 {
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #0a1a2f;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.login-box input[type="email"],
+.login-box input[type="password"] {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.login-box input[type="submit"] {
+  background: #0a1a2f;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+}
+
+.login-box input[type="submit"]:hover {
+  background: linear-gradient(90deg, #007aff, #4a90e2);
+  transform: scale(1.05);
+}
+
+.error {
+  color: #f87171;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.back-home {
+  display: inline-block;
+  margin-top: 15px;
+  text-decoration: none;
+  color: #007aff;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.back-home:hover {
+  color: #005fcc;
+  text-decoration: underline;
+}
