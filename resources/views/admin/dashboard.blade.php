@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Dashboard Administrator</title>
-</head>
-<body>
-  <h1>Selamat datang, Administrator {{ Auth::user()->name }}</h1>
-  <a href="{{ route('logout') }}"
-     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-     Logout
-  </a>
+@extends('admin.layouts.app')
 
-  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
-      @csrf
-  </form>
-</body>
-</html>
+@section('title', 'Dashboard Admin')
+
+@section('content')
+<div class="welcome-area">
+    <div class="welcome-card">
+        <h1>Selamat Datang di Halaman <span>Administrator</span></h1>
+        <p>Sistem modern yang membantu Anda mengelola pengguna, hewan, dan layanan medis secara efisien.</p>
+    </div>
+</div>
+@endsection

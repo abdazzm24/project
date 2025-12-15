@@ -21,7 +21,7 @@ class User extends Authenticatable
     protected $primaryKey = 'iduser';
     public $timestamps = false;
     protected $fillable = [
-        'name',
+        'nama',
         'email',
         'password',
     ];
@@ -57,5 +57,20 @@ class User extends Authenticatable
     public function roleUser()
     {
         return $this->hasMany(RoleUser::class, 'iduser', 'iduser');
+    }
+
+    public function rekamMedis()
+    {
+        return $this->hasMany(RekamMedis::class, 'dokter_pemeriksa', 'iduser');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user', 'iduser', 'idrole');
+    }
+
+    public function hasRole($roleId)
+    {
+        return $this->roles()->where('idrole', $roleId)->exists();
     }
 }

@@ -10,6 +10,9 @@ class JenisHewan extends Model
     protected $primaryKey = 'idjenis_hewan';
     protected $fillable = ['nama_jenis_hewan'];
 
+    // mematikan creted_at dan updated_at
+    public $timestamps = false;
+
     public function rasHewan()
     {
         return $this->hasMany(RasHewan::class, 'idjenis_hewan', 'idjenis_hewan');

@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Role;
 
 class LoginController extends Controller
 {
@@ -16,7 +20,7 @@ class LoginController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required|min:3',
         ]);
 
         if ($validator->fails()) {
@@ -43,7 +47,9 @@ class LoginController extends Controller
                 ->withInput();
         }
 
-        $namarole = Role::where('idrole', $user->roleUser[0]->idrole ?? null)->first();
+        // Ambil role
+        $currentRole = $user->roleUser[0] ?? null;
+        $roleData = Role::where('idrole', $currentRole->idrole ?? null)->first();
 
         // login user ke session
         Auth::login($user);
@@ -53,12 +59,28 @@ class LoginController extends Controller
             'user_id' => $user->iduser,
             'user_name' => $user->nama,
             'user_email' => $user->email,
-            'user_role' => $user->roleUser[0]->nama_role ?? 'user',
-            'user_role_name' => $namarole->name_role ?? 'User',
-            'user_status' => $user->roleUser[0]->status ?? '1',
+            'user_role' => $currentRole->nama_role ?? 'user',
+            'user_role_name' => $roleData->name_role ?? 'User',
+            'user_status' => $currentRole->status ?? '1',
         ]);
 
-        return redirect()->intended('/home')->with('success', 'Login berhasil!');
+        //redirect sesuai role
+        $roleName = strtolower($roleData->nama_role ?? '');
+
+        switch ($roleName) {
+            case 'administrator':
+                return redirect()->intended('/admin/dashboard')->with('success', 'Login berhasil!');
+            case 'dokter':
+                return redirect()->intended('/dokter/dashboard')->with('success', 'Login berhasil!');
+            case 'perawat':
+                return redirect()->intended('/perawat/dashboard')->with('success', 'Login berhasil!');
+            case 'resepsionis':
+                return redirect()->intended('/resepsionis/dashboard')->with('success', 'Login berhasil!');
+            case 'pemilik':
+                return redirect()->intended('/pemilik/dashboard')->with('success', 'Login berhasil!');
+            default:
+                return redirect('/')->with('error', 'Role tidak dikenali.');
+        }
     }
 
     public function logout(Request $request)

@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Pemilik extends Model
 {
     protected $table = 'pemilik';
     protected $primaryKey = 'idpemilik';
-    protected $fillable = ['nama', 'no_wa', 'alamat'];
+    public $timestamps = false;
+    protected $guarded = [];
 
     public function user()
     {
